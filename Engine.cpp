@@ -1,12 +1,15 @@
+#include <iostream>
 #include "Engine.h"
+
+
 Engine::Engine(int _x, int _y) : x(_x), y(_y) {
     xfix = (double) _x / (double) y;
     camera_position = Vec3(0, 0, -10);
 	objects.resize(0);
 }
 
-void Engine::addObject(Object &obj){
-    objects.push_back(obj);
+void Engine::addObject(std::unique_ptr<Object> obj){
+    objects.push_back(std::move(obj));
 }
 
 Image Engine::render(){
@@ -17,11 +20,8 @@ Image Engine::render(){
             Vec3(
                 (((double) j / y) * 2) - xfix, 
                 (((double) i / y) * 2) - 1, 1));
-
-            double bestDistance = 0;
-            Object bestObject;
-			for(auto e: objects){
-                if(e.hit(ray)) image.setData(j, i, Vec3(255, 0, 0));
+			for(int a=0; a<objects.size(); a++){
+                if(objects[a]->hit(ray)) image.setData(j, i, Vec3(255, 0, 0));
 			}
         }
     }

@@ -2,6 +2,7 @@
 
 bool Object::hit(Ray& ray)
 {
+
 	return false;
 }
 

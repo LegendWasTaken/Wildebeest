@@ -5,6 +5,6 @@
 
 class Object {
     public:
-        virtual bool hit(Ray &ray);
-        virtual Vec3 getColour();
+        virtual bool hit(Ray &ray) = 0;
+        virtual Vec3 getColour() = 0;
 };
